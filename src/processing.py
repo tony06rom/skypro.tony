@@ -14,8 +14,8 @@ def sort_by_date(sort_data: str, reverse: bool = True) -> list[dict[int, str,]]:
     """ Словарь отсортированный по дате.
     Принимает на вход список словарей, имеет стандартную сортировку в обратном порядке по data.
     Далее выводит список словарей в обратном порядке, если не было задано другой сортировки """
-
-    pass
+    sorted_data = sorted(sort_data, key=lambda x: x['date'], reverse=reverse)
+    return sorted_data
 
 
 # Входные данные
@@ -25,8 +25,8 @@ lost_input = [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29
               {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
 
 # Тесты
-final = filter_by_state(lost_input, 'CANCELED')
-print(final)
+# final = filter_by_state(lost_input, 'CANCELED')
+# print(final)
 
-# final_2 = sort_by_date(lost_input,True)
-# print(final_2)
+final_2 = sort_by_date(lost_input,False)
+print(final_2)
