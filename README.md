@@ -48,9 +48,9 @@
        <details>
        <summary>Пример работы:</summary>
       
-       [![Example_widget][1]][1]
+       [![Example_widget][2]][2]
    
-       [1]: /data/images/Example_widget.png
+       [2]: /data/images/Example_widget.png
        </details>
 
    
@@ -67,9 +67,9 @@
        <details>
        <summary>Пример работы:</summary>
       
-       [![Example_processing][1]][1]
+       [![Example_processing][3]][3]
    
-       [1]: /data/images/Example_processing.png
+       [3]: /data/images/Example_processing.png
        </details>
       
 Все тесты функций можно выполнять из директории [tests](/tests)
