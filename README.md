@@ -23,7 +23,7 @@
 
      _Пример импорта:_
        ```
-     from src.masks import *****
+     from src.masks import get_mask_card_number
        ```
 
      <details>
