@@ -28,14 +28,14 @@ print("===========================")
 # Тест функции sort_by_date
 def choose_reverse(reverse_mode):
     if reverse_mode == str("True"):
-        return True and "убыванию"
+        return {"reverse_mode_bool": True, "reverse_mode_string": "убыванию"}
     elif reverse_mode == str("False"):
-        return False and "возрастанию"  # в итоговом выводе почему-то получается 'False' (39 строка)
+        return {"reverse_mode_bool": False, "reverse_mode_string": "возрастанию"}
     else:
-        return True and "умолчанию (по убыванию)"
+        return {"reverse_mode_bool": True, "reverse_mode_string": "умолчанию (по убыванию)"}
 
 
 input_user_2 = str(input(f"Введите одно из допустимых значений сортировки:\nTrue\nFalse\n"))
 reverse_equals = choose_reverse(input_user_2)
-final_2 = sort_by_date(origin_data, bool(reverse_equals))
-print(f"Сортировка словарей в списке по {str(choose_reverse(input_user_2))} по ключу data\n\n{final_2}")
+final_2 = sort_by_date(origin_data, reverse_equals["reverse_mode_bool"])
+print(f"Сортировка словарей в списке по {str(reverse_equals["reverse_mode_string"])} по ключу data\n\n{final_2}")
