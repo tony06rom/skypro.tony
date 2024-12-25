@@ -6,8 +6,9 @@ def get_mask_card_number(card_number: str) -> str:
     elif format_card_number.lower() == "quit":
         return "До свидания!"
     else:
-        return get_mask_card_number(input("Номер карты введён неверно. "
-                                          "Повторите ввод или напишите 'quit' для выхода\n"))
+        return get_mask_card_number(
+            input("Номер карты введён неверно. " "Повторите ввод или напишите 'quit' для выхода\n")
+        )
 
 
 def get_mask_account(score_card: str) -> str:
@@ -18,5 +19,6 @@ def get_mask_account(score_card: str) -> str:
     elif format_score_card.lower() == "quit":
         return "До свидания!"
     else:
-        return get_mask_card_number(input("Номер счёта введён неверно. "
-                                          "Повторите ввод или напишите 'quit' для выхода\n"))
+        return get_mask_card_number(
+            input("Номер счёта введён неверно. " "Повторите ввод или напишите 'quit' для выхода\n")
+        )

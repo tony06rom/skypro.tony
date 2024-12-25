@@ -1,7 +1,7 @@
-![SkyPro_image](/data/images/SkyPro.png)
-![Python_image](/data/images/Python.png)
-![Git_image](/data/images/Git.png)
-![GitHub_image](/data/images/GitHub.png)
+![SkyPro_image](/data/images/for_readme_file/SkyPro.png)
+![Python_image](/data/images/for_readme_file/Python.png)
+![Git_image](/data/images/for_readme_file/Git.png)
+![GitHub_image](/data/images/for_readme_file/GitHub.png)
 
 # Первые шаги в Python с использованием GitHub
 ## Здесь будет проводиться разработка (обучение) приложения
@@ -13,6 +13,8 @@
 - gitignore настроен на работу с PyCharm
 - подключены линтеры
 - локальный Git связан с репозиторием на GitHub
+
+===============================================================================================
 
 ### Инструкции для модулей:
 
@@ -31,7 +33,7 @@
       
      [![Example_masks][1]][1]
    
-      [1]: /data/images/Example_masks.png
+      [1]: /data/images/for_readme_file/Example_masks.png
       </details>
    
    
@@ -50,7 +52,7 @@
       
        [![Example_widget][2]][2]
    
-       [2]: /data/images/Example_widget.png
+       [2]: /data/images/for_readme_file/Example_widget.png
        </details>
 
    
@@ -69,10 +71,50 @@
       
        [![Example_processing][3]][3]
    
-       [3]: /data/images/Example_processing.png
+       [3]: /data/images/for_readme_file/Example_processing.png
        </details>
       
 Все тесты функций можно выполнять из директории [tests](/tests)
+
+===============================================================================================
+## Pytest
+
+Реализовано тестирование функций при помощи pytest.
+Отчет реализован в импорте в [html](/htmlcov) (```pytest --cov=src --cov-report=html```)
+На данный момент покрыто тестами 100% функций проекта (скриншоты отчёта):
+
+   <details>
+   <summary>Проверка по файлам:</summary>
+  
+   [![Example_processing][4]][4]
+
+   [4]: /data/images/for_readme_file/Pytest_files.png
+   </details>
+
+   <details>
+   <summary>Проверка по функциям:</summary>
+  
+   [![Example_processing][4]][4]
+
+   [4]: /data/images/for_readme_file/Pytest_functions.png
+   </details>
+
+   <details>
+   <summary>Проверка по классам:</summary>
+  
+   [![Example_processing][4]][4]
+
+   [4]: /data/images/for_readme_file/Pytest_classes.png
+   </details>
+
+===============================================================================================
+
+## Проблемы проекта
+
+На данный момент линтер ***mypy*** не работает. Зависает при выполнении.
+Будет проводиться работа по устранению проблемы.
+
+===============================================================================================
 
 Этот проект выполняется совместно с [SkyPro](https://sky.pro/)
 ####  Автор проекта: **Romanenko Anton**
