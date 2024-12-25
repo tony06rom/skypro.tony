@@ -111,8 +111,11 @@
 
 ## Проблемы проекта
 
-На данный момент линтер ***mypy*** не работает. Зависает при выполнении.
-Будет проводиться работа по устранению проблемы.
+На данный момент ***mypy*** выдает 2 ошибки
+
+> src\widget.py:24: error: Missing return statement  [return]
+ 
+> src\widget.py:31: error: Incompatible types in assignment (expression has type "list[str]", variable has type "str")  [assignment]
 
 ===============================================================================================
 

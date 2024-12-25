@@ -29,8 +29,7 @@ def get_date(date_unformat: str) -> str:
         raw_date = "-".join((date_unformat.split("T"))[:1])
         if "-" in raw_date:
             raw_date = raw_date.split("-")
-            raw_date.reverse()
-            date_format = ".".join(raw_date)
+            date_format = '.'.join(reversed(raw_date))
             return str(date_format)
     else:
         return "Неизвестный формат даты и времени"
