@@ -1,4 +1,4 @@
-def filter_by_currency(transact_list, currency):
+def filter_by_currency(transact_list: list[dict[str, int]], currency: str) -> list[dict[str, int]]:
     """ Принимает список транзакций.
         Возвращает итератор, который поочередно выдает транзакции, где currency - валюта     """
     for transaction in transact_list:
@@ -6,9 +6,10 @@ def filter_by_currency(transact_list, currency):
             yield transaction
 
 
-def transaction_descriptions():
-    """ text    """
-    pass
+def transaction_descriptions(transact_list: list[dict[str, int]]) -> str:
+    """ Принимает список транзакций и возвращает описание каждой операции по очереди    """
+    for transaction in transact_list:
+        yield transaction.get("description")
 
 def card_number_generator():
     """ text    """
