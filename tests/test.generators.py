@@ -21,10 +21,16 @@ from src.generators import filter_by_currency, transaction_descriptions, card_nu
 
 
 # Тест функции transaction_descriptions
-descriptions = transaction_descriptions(transactions)
-for i in range(5):
-    next_transact = input(f"Введите Enter для вывода информации по транзакции")
-    print(next(descriptions))
+# descriptions = transaction_descriptions(transactions)
+# for i in range(5):
+#     next_transact = input(f"Введите Enter для вывода информации по транзакции")
+#     print(next(descriptions))
 
 
 # Тест функции card_number_generator
+
+start_input = int(input(f"Введите начальный диапазон номеров карт: "))
+end_input = int(input(f"Введите конечный диапазон номеров карт: "))
+print("===========================")
+for card_number in card_number_generator(start_input, end_input):
+    print(card_number)
