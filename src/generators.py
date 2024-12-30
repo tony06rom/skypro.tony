@@ -1,35 +1,6 @@
 from typing import Any
 
 
-def filter_by_currency(transact_list: list[dict[Any, Any]], currency: str) -> Any:
-    """Принимает список транзакций.
-    Возвращает итератор, который поочередно выдает транзакции, где currency - валюта"""
-    for transaction in transact_list:
-        if transaction["operationAmount"]["currency"]["code"] == currency:
-            yield transaction
-
-
-def transaction_descriptions(transact_list: list[dict[str, int]]) -> Any:
-    """Принимает список транзакций и возвращает описание каждой операции по очереди"""
-    for transaction in transact_list:
-        yield transaction.get("description")
-
-
-def card_number_generator(start_range: int, end_range: int) -> Any:
-    """Выдает номера банковских карт в формате XXXX XXXX XXXX XXXX
-    Генератор генерирует номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999.
-    Генератор должен принимать начальное и конечное значения для генерации диапазона номеров"""
-    if start_range < end_range:
-        for number in range(start_range, end_range + 1):
-            new_number = str(number)
-            while len(new_number) < 16:
-                new_number = "0" + new_number
-            format_card_number = f"{new_number[0:4]} {new_number[4:8]} {new_number[8:12]} {new_number[12:16]}"
-            yield format_card_number
-    else:
-        print("Выбран неверный диапазон")
-
-
 transactions = [
     {
         "id": 939719570,
@@ -77,3 +48,50 @@ transactions = [
         "to": "Счет 14211924144426031657",
     },
 ]
+
+
+def filter_by_currency(transact_list: list[dict[Any, Any]], currency: str) -> Any:
+    """Принимает список транзакций.
+    Возвращает итератор, который поочередно выдает транзакции, где currency - валюта"""
+    for transaction in transact_list:
+        if currency in transaction["operationAmount"]["currency"]["code"]:
+            if transaction["operationAmount"]["currency"]["code"] == currency:
+                yield transaction
+        else:
+            return f"transact_list without '{currency}'"
+
+
+def transaction_descriptions(transact_list: list[dict[str, int]]) -> Any:
+    """Принимает список транзакций и возвращает описание каждой операции по очереди"""
+    is_list = isinstance(transact_list, list)
+    if is_list is True:
+        for transaction in transact_list:
+            if "description" in transaction:
+                if transaction.get("description") == '':
+                    yield "descriptionIsEmpty"
+                else:
+                    yield transaction.get("description")
+            else:
+                yield "descriptionNotInTransact"
+    else:
+        return "TransactListIsNotList"
+
+
+def card_number_generator(start_range: int, end_range: int) -> Any:
+    """Выдает номера банковских карт в формате XXXX XXXX XXXX XXXX
+    Генератор генерирует номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999.
+    Генератор должен принимать начальное и конечное значения для генерации диапазона номеров"""
+    if start_range < end_range:
+        for number in range(start_range, end_range + 1):
+            new_number = str(number)
+            while len(new_number) < 16:
+                new_number = "0" + new_number
+            format_card_number = f"{new_number[0:4]} {new_number[4:8]} {new_number[8:12]} {new_number[12:16]}"
+            yield format_card_number
+    else:
+        print("Выбран неверный диапазон")
+
+
+# t = filter_by_currency(transactions, 'e56SD')
+# for i in range(2):
+#     print(next(t))
