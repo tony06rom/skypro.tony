@@ -73,8 +73,27 @@
    
        [3]: /data/images/for_readme_file/Example_processing.png
        </details>
+    
+4. Модуль _**generators**_
+    - Доступные функции:
+      - filter_by_currency
+      - transaction_descriptions
+      - card_number_generator
       
-Все тесты функций можно выполнять из директории [tests](/tests)
+      _Пример импорта:_
+        ```
+      from src.generators import filter_by_currency
+      ```
+
+       <details>
+       <summary>Пример работы:</summary>
+      
+       [![Example_processing][4]][4]
+   
+       [4]: /data/images/for_readme_file/Example_generators.png
+       </details>    
+      
+Все тесты функций можно выполнять из директории [moduls_test](/moduls_test)
 
 ===============================================================================================
 ## Pytest
@@ -86,25 +105,25 @@
    <details>
    <summary>Проверка по файлам:</summary>
   
-   [![Example_processing][4]][4]
+   [![Example_processing][5]][5]
 
-   [4]: /data/images/for_readme_file/Pytest_files.png
+   [5]: /data/images/for_readme_file/Pytest_files.png
    </details>
 
    <details>
    <summary>Проверка по функциям:</summary>
   
-   [![Example_processing][4]][4]
+   [![Example_processing][6]][6]
 
-   [4]: /data/images/for_readme_file/Pytest_functions.png
+   [6]: /data/images/for_readme_file/Pytest_functions.png
    </details>
 
    <details>
    <summary>Проверка по классам:</summary>
   
-   [![Example_processing][4]][4]
+   [![Example_processing][7]][7]
 
-   [4]: /data/images/for_readme_file/Pytest_classes.png
+   [7]: /data/images/for_readme_file/Pytest_classes.png
    </details>
 
 ===============================================================================================

@@ -1,3 +1,5 @@
+from typing import Any
+
 from src.masks import get_mask_account, get_mask_card_number
 
 
@@ -21,15 +23,15 @@ def mask_account_card(user_number: str) -> str:
         )
 
 
-def get_date(date_unformat: str) -> str:
+def get_date(date_unformat: str) -> Any:
     """Принимает на вход дату формата '2024-03-11T02:26:18.671407' и
     отдает корректный результат в формате '11.07.2018'"""
     #    marks = ['.', '-', '\\', '/', ':', ',', '_', '*', '^', '`'] # доработать на разделители
     if "T" in date_unformat:
         raw_date = "-".join((date_unformat.split("T"))[:1])
         if "-" in raw_date:
-            raw_date = raw_date.split("-")
-            date_format = '.'.join(reversed(raw_date))
+            raw_date_2 = raw_date.split("-")
+            date_format = ".".join(reversed(raw_date_2))
             return str(date_format)
     else:
         return "Неизвестный формат даты и времени"

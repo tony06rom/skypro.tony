@@ -17,6 +17,6 @@ def test_sort_by_date(fix_origin_data, fix_sorted_true, fix_sorted_false):
     assert sort_by_date(fix_origin_data) == fix_sorted_true
 
 
-def test_filter_by_state_errors(fix_filter_by_state):
+def test_filter_by_state_errors(fix_press_enter):
     with pytest.raises(AttributeError):
-        filter_by_state(fix_filter_by_state)
+        filter_by_state(fix_press_enter)
