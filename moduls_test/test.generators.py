@@ -24,7 +24,7 @@ input_user = str(input(f"===> Введите одно из допустимых 
 print(f"===> Транзакции по фильтру currency_code = {input_user}:")
 print("===========================")
 currency_transactions = filter_by_currency(transactions, input_user)
-range_iterations = count_code(transactions,input_user)
+range_iterations = count_code(transactions, input_user)
 for i in range(range_iterations):
     next_transact = input("===> Введите Enter для вывода транзакции ")
     print(next(currency_transactions))
