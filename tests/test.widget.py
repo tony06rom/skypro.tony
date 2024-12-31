@@ -1,4 +1,4 @@
-from src.widget import mask_account_card, get_date
+from src.widget import get_date, mask_account_card
 
 """ --- 9.2 Основы Git --- """
 
