@@ -14,17 +14,20 @@ def count_code(start_data, user_input):
     count = 0
     for data in start_data:
         if data["operationAmount"]["currency"]["code"] == user_input:
-            count =+ 1
+            count += 1
+        else:
+            continue
     return count
 
 
 input_user = str(input(f"===> Введите одно из допустимых значений currency_code:\n{uniq_code(transactions)}\n"))
 print(f"===> Транзакции по фильтру currency_code = {input_user}:")
 print("===========================")
-usd_transactions = filter_by_currency(transactions, input_user)
-for i in range(count_code(transactions,input_user) + 1):
+currency_transactions = filter_by_currency(transactions, input_user)
+range_iterations = count_code(transactions,input_user)
+for i in range(range_iterations):
     next_transact = input("===> Введите Enter для вывода транзакции ")
-    print(next(usd_transactions))
+    print(next(currency_transactions))
 print("===> Все транзакции были выведены\n===========================")
 
 
