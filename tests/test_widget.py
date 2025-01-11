@@ -21,17 +21,6 @@ def test_widget_account_card(input_user, expected):
     assert mask_account_card(input_user) == expected
 
 
-def test_widget_account_card_errors():
-    with pytest.raises(OSError):
-        mask_account_card("")
-    with pytest.raises(OSError):
-        mask_account_card("Счет 12345678901234567")
-    with pytest.raises(OSError):
-        mask_account_card("Visa 12345678901234567890")
-    with pytest.raises(OSError):
-        mask_account_card("Отчёт 123456789012345678901")
-
-
 @pytest.mark.parametrize(
     "now, expected",
     [

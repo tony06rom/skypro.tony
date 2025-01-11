@@ -1,5 +1,7 @@
 from typing import Any
 
+from src.decorators import decor_log as decor
+
 transactions = [
     {
         "id": 939719570,
@@ -49,6 +51,7 @@ transactions = [
 ]
 
 
+@decor(filename="log_generators.txt")
 def filter_by_currency(transact_list: list[dict[Any, Any]], currency: str) -> Any:
     """Принимает список транзакций.
     Возвращает итератор, который поочередно выдает транзакции, где currency - валюта"""
@@ -71,6 +74,7 @@ def filter_by_currency(transact_list: list[dict[Any, Any]], currency: str) -> An
             yield f"Транзакций в валюте '{currency}' нет"
 
 
+@decor(filename="log_generators.txt")
 def transaction_descriptions(transact_list: list[dict[str, int]]) -> Any:
     """Принимает список транзакций и возвращает описание каждой операции по очереди"""
     tmp_transact = []
@@ -87,6 +91,7 @@ def transaction_descriptions(transact_list: list[dict[str, int]]) -> Any:
             yield "Данных по операциям нет"
 
 
+@decor(filename="log_generators.txt")
 def card_number_generator(start_range: int, end_range: int) -> Any:
     """Выдает номера банковских карт в формате XXXX XXXX XXXX XXXX
     Генератор генерирует номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999.
