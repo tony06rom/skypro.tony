@@ -1,4 +1,10 @@
-def get_mask_card_number(card_number: str) -> str:
+from typing import Any
+
+from src.decorators import decor_log as decor
+
+
+@decor(filename="log_masks.txt")
+def get_mask_card_number(card_number: str) -> Any:
     """Функция маскировки номера банковской карты"""
     format_card_number = card_number.replace(" ", "")
     if format_card_number.isdigit() is True and len(format_card_number) == 16:
@@ -11,7 +17,8 @@ def get_mask_card_number(card_number: str) -> str:
         )
 
 
-def get_mask_account(score_card: str) -> str:
+@decor(filename="log_masks.txt")
+def get_mask_account(score_card: str) -> Any:
     """Функция маскировки номера банковского счета"""
     format_score_card = score_card.replace(" ", "")
     if format_score_card.isdigit() is True and len(format_score_card) == 20:

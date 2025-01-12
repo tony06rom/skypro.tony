@@ -1,7 +1,11 @@
+from typing import Any
+
+from src.decorators import decor_log as decor
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def mask_account_card(user_number: str) -> str:
+@decor(filename="log_widget.txt")
+def mask_account_card(user_number: str) -> Any:
     """Обрабатывает информацию как о картах, так и о счетах"""
     format_user_number = user_number.split(" ")
     number_of_card_or_score = "".join(format_user_number[-1:])
@@ -17,19 +21,20 @@ def mask_account_card(user_number: str) -> str:
         return "До свидания!"
     else:
         return mask_account_card(
-            input("Введены некорректные данные. " "Повторите ввод или напишите 'quit' для выхода\n")
+            input("Введены некорректные данные. Повторите ввод или напишите 'quit' для выхода\n")
         )
 
 
-def get_date(date_unformat: str) -> str:
+@decor(filename="log_widget.txt")
+def get_date(date_unformat: str) -> Any:
     """Принимает на вход дату формата '2024-03-11T02:26:18.671407' и
     отдает корректный результат в формате '11.07.2018'"""
     #    marks = ['.', '-', '\\', '/', ':', ',', '_', '*', '^', '`'] # доработать на разделители
     if "T" in date_unformat:
         raw_date = "-".join((date_unformat.split("T"))[:1])
         if "-" in raw_date:
-            raw_date = raw_date.split("-")
-            date_format = '.'.join(reversed(raw_date))
+            raw_date_2 = raw_date.split("-")
+            date_format = ".".join(reversed(raw_date_2))
             return str(date_format)
     else:
         return "Неизвестный формат даты и времени"
