@@ -91,7 +91,24 @@
        [![Example_processing][4]][4]
    
        [4]: /data/images/for_readme_file/Example_generators.png
-       </details>    
+       </details>
+    
+5. Модуль _**decorators**_
+    - Доступные функции:
+      - decor_log
+      
+      _Пример импорта:_
+        ```
+      from src.decorators import decor_log as decor
+      ```
+
+       <details>
+       <summary>Пример работы:</summary>
+      
+       [![Example_decorators][5]][5]
+   
+       [5]: /data/images/for_readme_file/Example_decorators.png
+       </details>      
       
 Все тесты функций можно выполнять из директории [moduls_test](/moduls_test)
 
@@ -99,8 +116,8 @@
 ## Pytest
 
 Реализовано тестирование функций при помощи pytest.
-Отчет реализован в импорте в [html](/htmlcov) (```pytest --cov=src --cov-report=html```)
-На данный момент покрыто тестами 100% функций проекта (скриншоты отчёта):
+Отчет реализован в импорте в [html](/htmlcov)
+На данный момент покрыто тестами 98% функций проекта (скриншоты отчёта):
 
    <details>
    <summary>Проверка по файлам:</summary>
@@ -125,6 +142,14 @@
 
    [7]: /data/images/for_readme_file/Pytest_classes.png
    </details>
+
+
+Формирование отчёта в html:
+```pytest --cov=src --cov-report=html```
+Отчёт в консоли:
+```run pytest --cov```
+Проверка тестовых файлов:
+```pytest -cov```
 
 ===============================================================================================
 

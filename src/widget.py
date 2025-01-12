@@ -1,9 +1,11 @@
 from typing import Any
 
+from src.decorators import decor_log as decor
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def mask_account_card(user_number: str) -> str:
+@decor(filename="log_widget.txt")
+def mask_account_card(user_number: str) -> Any:
     """Обрабатывает информацию как о картах, так и о счетах"""
     format_user_number = user_number.split(" ")
     number_of_card_or_score = "".join(format_user_number[-1:])
@@ -19,10 +21,11 @@ def mask_account_card(user_number: str) -> str:
         return "До свидания!"
     else:
         return mask_account_card(
-            input("Введены некорректные данные. " "Повторите ввод или напишите 'quit' для выхода\n")
+            input("Введены некорректные данные. Повторите ввод или напишите 'quit' для выхода\n")
         )
 
 
+@decor(filename="log_widget.txt")
 def get_date(date_unformat: str) -> Any:
     """Принимает на вход дату формата '2024-03-11T02:26:18.671407' и
     отдает корректный результат в формате '11.07.2018'"""

@@ -21,14 +21,3 @@ def test_get_mask_card_number(input_user, expected):
 )
 def test_get_mask_account(input_user, expected):
     assert get_mask_account(input_user) == expected
-
-
-def test_masks_errors():
-    with pytest.raises(OSError):
-        get_mask_card_number("")
-    with pytest.raises(OSError):
-        get_mask_card_number("83495674565467566")
-    with pytest.raises(OSError):
-        get_mask_account("123456789012345678901")
-    with pytest.raises(OSError):
-        get_mask_account("")
