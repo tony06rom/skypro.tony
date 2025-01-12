@@ -5,6 +5,7 @@ from typing import Any
 
 
 def decor_log(filename: str = '') -> Any:
+    """ Логирует начало и конец выполнения функции, а также ее результаты или возникшие ошибки """
     def decorator(func: Any) -> Any:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:

@@ -21,5 +21,3 @@ def sort_by_date(sort_data: list[dict[str, int]], reverse: bool = True) -> list[
     Далее выводит список словарей в обратном порядке, если не было задано другой сортировки"""
     sorted_data = sorted(sort_data, key=lambda x: x["date"], reverse=reverse)
     return sorted_data
-
-print(filter_by_state())
