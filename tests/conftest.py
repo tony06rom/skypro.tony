@@ -145,8 +145,8 @@ def empty_descript_list():
 
 
 @pytest.fixture
-def fix_data_read_json_file():
-    return [
+def fix_data_read_json_valid_file():
+    return """[
       {
         "id": 414894334,
         "state": "EXECUTED",
@@ -162,4 +162,57 @@ def fix_data_read_json_file():
         "from": "Счет 59956820797131895975",
         "to": "Счет 43475624104328495820"
         }
+    ]"""
+
+
+@pytest.fixture
+def fix_data_read_json_invalid_file() -> list[dict]:
+    return [
+        {
+            "id": 736942989,
+            "state": "EXECUTED",
+            "date": "2019-09-06T00:48:01.081967",
+            "operationAmount": {"amount": "6357.56", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод организации",
+            "from": "Visa Gold 3654412434951162",
+            "to": "Счет 59986621134048778289",
+        }
+    ]
+
+
+@pytest.fixture
+def fix_data_read_json_empty_list():
+    return """[]"""
+
+
+@pytest.fixture
+def fix_data_summ_transact_rub():
+    return [
+        {
+            "id": 441945886,
+            "state": "EXECUTED",
+            "date": "2019-08-26T10:50:58.294041",
+            "operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}},
+            "description": "Перевод организации",
+            "from": "Maestro 1596837868705199",
+            "to": "Счет 64686473678894779589",
+        },
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод организации",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560",
+        },
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702",
+        },
     ]
