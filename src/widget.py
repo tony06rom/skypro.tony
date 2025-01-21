@@ -20,9 +20,7 @@ def mask_account_card(user_number: str) -> Any:
     elif user_number.lower() == "quit":
         return "До свидания!"
     else:
-        return mask_account_card(
-            input("Введены некорректные данные. Повторите ввод или напишите 'quit' для выхода\n")
-        )
+        return mask_account_card(input("Введены некорректные данные. Повторите ввод или напишите 'quit' для выхода\n"))
 
 
 @decor(filename="log_widget.txt")
