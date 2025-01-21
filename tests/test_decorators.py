@@ -2,7 +2,7 @@ from src.decorators import decor_log as decor
 
 
 @decor(filename="log.txt")
-@decor('')
+@decor("")
 def func_test(x, y):
     result = int(x) / int(y)
     return result
