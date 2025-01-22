@@ -1,7 +1,7 @@
 from src.decorators import decor_log as decor
 
 
-@decor(filename="log_decorators.txt")
+@decor(filename="../wraps/log_decorators.txt")
 @decor()
 def func_test(x, y):
     result = int(x) / int(y)
