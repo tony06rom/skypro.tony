@@ -1,54 +1,50 @@
 import json
+import logging
 from typing import Any
 
 from src.external_api import convert_amount
 
-import logging
-
-
-logger = logging.getLogger('utils')
+logger = logging.getLogger("utils")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('"../logs/utils.log"', 'w', encoding='utf-8')
-file_formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s')
+file_handler = logging.FileHandler('"../logs/utils.log"', "w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
-
-
 
 
 def read_json_file(open_file: Any) -> Any:
     """Принимает на вход имя JSON-файла по пути ./data/ и
     возвращает список словарей с данными о финансовых транзакциях"""
 
-    logger.info('Запуск программы')
+    logger.info("Запуск программы")
 
     try:
-        with open(f"../data/{open_file}.json", 'r', encoding='utf-8') as jf:
+        with open(f"../data/{open_file}.json", "r", encoding="utf-8") as jf:
 
-            logger.info(f'Открыт файл ../data/{open_file}.json на чтение')
+            logger.info(f"Открыт файл ../data/{open_file}.json на чтение")
 
             try:
                 json_obj = json.load(jf)
                 if json_obj:
 
-                    logger.info('Конвертация JSON файла прошла успешно')
+                    logger.info("Конвертация JSON файла прошла успешно")
 
                     return json_obj
                 else:
 
-                    logger.warning(f'JSON в файле {open_file} имеет пустой список')
+                    logger.warning(f"JSON в файле {open_file} имеет пустой список")
 
                     print("Файл содержит пустой список")
                     return []
             except json.JSONDecodeError:
 
-                logger.error('Ошибка работы с файлов. Некорректный формат JSON')
+                logger.error("Ошибка работы с файлов. Некорректный формат JSON")
 
                 print("Объект не является JSON или JSON имеет неверный формат")
                 return []
     except FileNotFoundError:
 
-        logger.error(f'JSON с именем {open_file} не найден в директории ../data/')
+        logger.error(f"JSON с именем {open_file} не найден в директории ../data/")
 
         print("Файл не найден")
         return []
@@ -57,14 +53,14 @@ def read_json_file(open_file: Any) -> Any:
 def summ_transact_rub(finance_transacts: list[Any]) -> int:
     """Принимает на вход транзакцию и возвращает сумму транзакции в рублях"""
 
-    logger.info('Запуск программы')
+    logger.info("Запуск программы")
 
     amount_all_transacts = 0
     amount_usd_transacts = 0
     amount_eur_transacts = 0
     for transaction in finance_transacts:
 
-        logger.info('Запуск цикла перебора имеющихся транзакций')
+        logger.info("Запуск цикла перебора имеющихся транзакций")
 
         if "operationAmount" in transaction:
             if transaction["operationAmount"]["currency"]["code"] == "RUB":
@@ -82,8 +78,9 @@ def summ_transact_rub(finance_transacts: list[Any]) -> int:
     convert_eur = convert_amount(str(amount_eur_transacts), "EUR", "RUB")
     final = round((amount_all_transacts + int(convert_usd) + int(convert_eur)), 2)
 
-    logger.info('Конвертация различных валют в RUB прошла успешно')
+    logger.info("Конвертация различных валют в RUB прошла успешно")
 
     return final
 
-read_json_file('operations')
+
+read_json_file("operations")
