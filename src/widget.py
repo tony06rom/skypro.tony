@@ -23,7 +23,7 @@ def mask_account_card(user_number: str) -> Any:
         return mask_account_card(input("Введены некорректные данные. Повторите ввод или напишите 'quit' для выхода\n"))
 
 
-@decor(filename="log_widget.txt")
+@decor(filename="../wraps/log_widget.txt")
 def get_date(date_unformat: str) -> Any:
     """Принимает на вход дату формата '2024-03-11T02:26:18.671407' и
     отдает корректный результат в формате '11.07.2018'"""

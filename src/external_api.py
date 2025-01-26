@@ -5,7 +5,7 @@ import requests
 from dotenv import load_dotenv
 
 # Загружаем API-токен из .env
-load_dotenv(".env")
+load_dotenv("../.env")
 API_KEY = os.getenv("API_KEY")
 url = "https://api.apilayer.com/exchangerates_data/convert"
 
