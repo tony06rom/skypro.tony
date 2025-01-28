@@ -228,13 +228,29 @@ def fix_valid_data_for_csv_worker():
 @pytest.fixture
 def fix_valid_return_for_csv_worker():
     return [
-            {'id': '650703', 'state': 'EXECUTED', 'date': '2023-09-05T11:30:32Z', 'amount': '16210',
-             'currency_name': 'Sol', 'currency_code': 'PEN', 'from': 'Счет 58803664561298323391',
-             'to': 'Счет 39745660563456619397', 'description': 'Перевод организации'},
-            {'id': '2035682', 'state': 'EXECUTED', 'date': '2021-03-24T00:14:15Z', 'amount': '15992',
-             'currency_name': 'Rupiah', 'currency_code': 'IDR', 'from': 'Visa 9460814254923403',
-             'to': 'Visa 4565912603866373', 'description': 'Перевод с карты на карту'}
-        ]
+        {
+            "id": "650703",
+            "state": "EXECUTED",
+            "date": "2023-09-05T11:30:32Z",
+            "amount": "16210",
+            "currency_name": "Sol",
+            "currency_code": "PEN",
+            "from": "Счет 58803664561298323391",
+            "to": "Счет 39745660563456619397",
+            "description": "Перевод организации",
+        },
+        {
+            "id": "2035682",
+            "state": "EXECUTED",
+            "date": "2021-03-24T00:14:15Z",
+            "amount": "15992",
+            "currency_name": "Rupiah",
+            "currency_code": "IDR",
+            "from": "Visa 9460814254923403",
+            "to": "Visa 4565912603866373",
+            "description": "Перевод с карты на карту",
+        },
+    ]
 
 
 @pytest.fixture

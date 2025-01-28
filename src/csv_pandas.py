@@ -1,7 +1,8 @@
 import csv
-import pandas as pd
 import logging
+from typing import Any
 
+import pandas as pd
 
 logger = logging.getLogger("csv_pandas")
 logger.setLevel(logging.DEBUG)
@@ -13,24 +14,24 @@ logger.addHandler(file_handler)
 csv_transact = "../data/transactions.csv"
 excel_transact = "../data/transactions_excel.xlsx"
 
-def csv_worker(include_file: str=csv_transact) -> list[dict[str, int | float | str]] | Exception | str:
-    """ Считывает финансовые операции из CSV """
 
-    logger.info(f"Старт программы 'csv_worker'")
+def csv_worker(include_file: str = csv_transact) -> list[dict[str, int | float | str]] | Exception | str:
+    """Считывает финансовые операции из CSV"""
+
+    logger.info("Старт программы 'csv_worker'")
 
     try:
-        with open(include_file, mode='r', encoding="utf-8") as file:
+        with open(include_file, mode="r", encoding="utf-8") as file:
 
             logger.info(f"File '{include_file}' was opened")
 
-            csv_data = csv.DictReader(file, delimiter=';')
+            csv_data = csv.DictReader(file, delimiter=";")
 
             transact_list = [row for row in csv_data]
 
             logger.info(f"File '{include_file}' was success transform to dict")
 
             return transact_list
-
     except FileNotFoundError as exc_info:
 
         logger.error(f"File '{include_file}' not found")
@@ -38,17 +39,17 @@ def csv_worker(include_file: str=csv_transact) -> list[dict[str, int | float | s
         return f"Error: {type(exc_info).__name__}, Incorrect path to file or file name"
 
 
-def excel_worker(include_file: str=excel_transact) -> list[dict[str, int | float | str]] | Exception | str:
-    """ Считывает финансовые операции из Excel """
+def excel_worker(include_file: str = excel_transact) -> list[dict[Any, Any]] | Exception | str:
+    """Считывает финансовые операции из Excel"""
 
-    logger.info(f"Старт программы 'excel_worker'")
+    logger.info("Старт программы 'excel_worker'")
 
     try:
-        excel_data = pd.read_excel(include_file, sheet_name='Лист 1')
+        excel_data = pd.read_excel(include_file, sheet_name="Лист 1")
 
         logger.info(f"File '{include_file}' was opened")
 
-        transact_list = excel_data.to_dict(orient='records')
+        transact_list = excel_data.to_dict(orient="records")
 
         logger.info(f"File '{include_file}' was success transform to dict")
 

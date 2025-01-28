@@ -39,5 +39,5 @@ def test_get_read_file_empty_list(fix_data_read_json_empty_list):
 
 def test_get_read_file_not_found_return():
     """Проверка на отсутствие файла. Возвращает пустой список"""
-    result = read_json_file("test.json")
+    result = read_json_file("builtins.open")
     assert result == []

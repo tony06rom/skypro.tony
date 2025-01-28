@@ -5,13 +5,13 @@ from src.decorators import decor_log as decor
 
 logger = logging.getLogger("masks")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('"../logs/masks.log/"', "w", encoding="utf-8")
+file_handler = logging.FileHandler("./logs/masks.log", "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-@decor(filename="../wraps/log_masks.txt")
+@decor(filename="./wraps/log_masks.txt")
 def get_mask_card_number(card_number: str) -> Any:
     """Функция маскировки номера банковской карты"""
 
@@ -40,7 +40,7 @@ def get_mask_card_number(card_number: str) -> Any:
         )
 
 
-@decor(filename="../wraps/log_masks.txt")
+@decor(filename="./wraps/log_masks.txt")
 def get_mask_account(score_card: str) -> Any:
     """Функция маскировки номера банковского счета"""
 
@@ -70,3 +70,4 @@ def get_mask_account(score_card: str) -> Any:
 
 
 get_mask_card_number("1234567890123456")
+# get_mask_account("12345678901234567890")
