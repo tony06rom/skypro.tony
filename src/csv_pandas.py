@@ -12,7 +12,6 @@ logger.addHandler(file_handler)
 
 csv_transact = "../data/transactions.csv"
 excel_transact = "../data/transactions_excel.xlsx"
-TMP_PATH = "../tmp/"
 
 def csv_worker(include_file: str=csv_transact) -> list[dict[str, int | float | str]] | Exception | str:
     """ Считывает финансовые операции из CSV """
@@ -25,6 +24,7 @@ def csv_worker(include_file: str=csv_transact) -> list[dict[str, int | float | s
             logger.info(f"File '{include_file}' was opened")
 
             csv_data = csv.DictReader(file, delimiter=';')
+
             transact_list = [row for row in csv_data]
 
             logger.info(f"File '{include_file}' was success transform to dict")
