@@ -60,12 +60,12 @@
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
-            <a id="prevFileLink" class="nav" href="z_145eef247bfb46b6_decorators_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a id="prevFileLink" class="nav" href="z_145eef247bfb46b6_external_api_py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="z_145eef247bfb46b6_masks_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2025-01-11 22:57 +0300
+            created at 2025-01-29 01:34 +0300
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -133,7 +133,7 @@
     <p class="pln"><span class="n"><a id="t51" href="#t51">51</a></span><span class="t"><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t52" href="#t52">52</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t53" href="#t53">53</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t54" href="#t54">54</a></span><span class="t"><span class="op">@</span><span class="nam">decor</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="str">"log_generators.txt"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t54" href="#t54">54</a></span><span class="t"><span class="op">@</span><span class="nam">decor</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="str">"./wraps/log_generators.txt"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t"><span class="key">def</span> <span class="nam">filter_by_currency</span><span class="op">(</span><span class="nam">transact_list</span><span class="op">:</span> <span class="nam">list</span><span class="op">[</span><span class="nam">dict</span><span class="op">[</span><span class="nam">Any</span><span class="op">,</span> <span class="nam">Any</span><span class="op">]</span><span class="op">]</span><span class="op">,</span> <span class="nam">currency</span><span class="op">:</span> <span class="nam">str</span><span class="op">)</span> <span class="op">-></span> <span class="nam">Any</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t56" href="#t56">56</a></span><span class="t">    <span class="str">"""&#1055;&#1088;&#1080;&#1085;&#1080;&#1084;&#1072;&#1077;&#1090; &#1089;&#1087;&#1080;&#1089;&#1086;&#1082; &#1090;&#1088;&#1072;&#1085;&#1079;&#1072;&#1082;&#1094;&#1080;&#1081;.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t57" href="#t57">57</a></span><span class="t"><span class="str">    &#1042;&#1086;&#1079;&#1074;&#1088;&#1072;&#1097;&#1072;&#1077;&#1090; &#1080;&#1090;&#1077;&#1088;&#1072;&#1090;&#1086;&#1088;, &#1082;&#1086;&#1090;&#1086;&#1088;&#1099;&#1081; &#1087;&#1086;&#1086;&#1095;&#1077;&#1088;&#1077;&#1076;&#1085;&#1086; &#1074;&#1099;&#1076;&#1072;&#1077;&#1090; &#1090;&#1088;&#1072;&#1085;&#1079;&#1072;&#1082;&#1094;&#1080;&#1080;, &#1075;&#1076;&#1077; currency - &#1074;&#1072;&#1083;&#1102;&#1090;&#1072;"""</span>&nbsp;</span><span class="r"></span></p>
@@ -156,7 +156,7 @@
     <p class="run"><span class="n"><a id="t74" href="#t74">74</a></span><span class="t">            <span class="key">yield</span> <span class="fst">f"</span><span class="fst">&#1058;&#1088;&#1072;&#1085;&#1079;&#1072;&#1082;&#1094;&#1080;&#1081; &#1074; &#1074;&#1072;&#1083;&#1102;&#1090;&#1077; '</span><span class="op">{</span><span class="nam">currency</span><span class="op">}</span><span class="fst">' &#1085;&#1077;&#1090;</span><span class="fst">"</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t75" href="#t75">75</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t76" href="#t76">76</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t77" href="#t77">77</a></span><span class="t"><span class="op">@</span><span class="nam">decor</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="str">"log_generators.txt"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t77" href="#t77">77</a></span><span class="t"><span class="op">@</span><span class="nam">decor</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="str">"./wraps/log_generators.txt"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t78" href="#t78">78</a></span><span class="t"><span class="key">def</span> <span class="nam">transaction_descriptions</span><span class="op">(</span><span class="nam">transact_list</span><span class="op">:</span> <span class="nam">list</span><span class="op">[</span><span class="nam">dict</span><span class="op">[</span><span class="nam">str</span><span class="op">,</span> <span class="nam">int</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">-></span> <span class="nam">Any</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t79" href="#t79">79</a></span><span class="t">    <span class="str">"""&#1055;&#1088;&#1080;&#1085;&#1080;&#1084;&#1072;&#1077;&#1090; &#1089;&#1087;&#1080;&#1089;&#1086;&#1082; &#1090;&#1088;&#1072;&#1085;&#1079;&#1072;&#1082;&#1094;&#1080;&#1081; &#1080; &#1074;&#1086;&#1079;&#1074;&#1088;&#1072;&#1097;&#1072;&#1077;&#1090; &#1086;&#1087;&#1080;&#1089;&#1072;&#1085;&#1080;&#1077; &#1082;&#1072;&#1078;&#1076;&#1086;&#1081; &#1086;&#1087;&#1077;&#1088;&#1072;&#1094;&#1080;&#1080; &#1087;&#1086; &#1086;&#1095;&#1077;&#1088;&#1077;&#1076;&#1080;"""</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t80" href="#t80">80</a></span><span class="t">    <span class="nam">tmp_transact</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
@@ -173,7 +173,7 @@
     <p class="run"><span class="n"><a id="t91" href="#t91">91</a></span><span class="t">            <span class="key">yield</span> <span class="str">"&#1044;&#1072;&#1085;&#1085;&#1099;&#1093; &#1087;&#1086; &#1086;&#1087;&#1077;&#1088;&#1072;&#1094;&#1080;&#1103;&#1084; &#1085;&#1077;&#1090;"</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t92" href="#t92">92</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t93" href="#t93">93</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t94" href="#t94">94</a></span><span class="t"><span class="op">@</span><span class="nam">decor</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="str">"log_generators.txt"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t94" href="#t94">94</a></span><span class="t"><span class="op">@</span><span class="nam">decor</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="str">"./wraps/log_generators.txt"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t95" href="#t95">95</a></span><span class="t"><span class="key">def</span> <span class="nam">card_number_generator</span><span class="op">(</span><span class="nam">start_range</span><span class="op">:</span> <span class="nam">int</span><span class="op">,</span> <span class="nam">end_range</span><span class="op">:</span> <span class="nam">int</span><span class="op">)</span> <span class="op">-></span> <span class="nam">Any</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t96" href="#t96">96</a></span><span class="t">    <span class="str">"""&#1042;&#1099;&#1076;&#1072;&#1077;&#1090; &#1085;&#1086;&#1084;&#1077;&#1088;&#1072; &#1073;&#1072;&#1085;&#1082;&#1086;&#1074;&#1089;&#1082;&#1080;&#1093; &#1082;&#1072;&#1088;&#1090; &#1074; &#1092;&#1086;&#1088;&#1084;&#1072;&#1090;&#1077; XXXX XXXX XXXX XXXX</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t97" href="#t97">97</a></span><span class="t"><span class="str">    &#1043;&#1077;&#1085;&#1077;&#1088;&#1072;&#1090;&#1086;&#1088; &#1075;&#1077;&#1085;&#1077;&#1088;&#1080;&#1088;&#1091;&#1077;&#1090; &#1085;&#1086;&#1084;&#1077;&#1088;&#1072; &#1082;&#1072;&#1088;&#1090; &#1074; &#1079;&#1072;&#1076;&#1072;&#1085;&#1085;&#1086;&#1084; &#1076;&#1080;&#1072;&#1087;&#1072;&#1079;&#1086;&#1085;&#1077; &#1086;&#1090; 0000 0000 0000 0001 &#1076;&#1086; 9999 9999 9999 9999.</span>&nbsp;</span><span class="r"></span></p>
@@ -191,12 +191,12 @@
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="z_145eef247bfb46b6_decorators_py.html">&#xab; prev</a> &nbsp; &nbsp;
+            <a class="nav" href="z_145eef247bfb46b6_external_api_py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a class="nav" href="z_145eef247bfb46b6_masks_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2025-01-11 22:57 +0300
+            created at 2025-01-29 01:34 +0300
         </p>
     </div>
 </footer>
