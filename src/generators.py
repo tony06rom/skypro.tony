@@ -1,6 +1,10 @@
 from typing import Any
-
 from src.decorators import decor_log as decor
+import os
+
+
+root_dir = os.path.dirname(os.path.abspath('__name__'))
+wraps_log = os.path.join(root_dir, "../wraps/log_processing.txt")
 
 transactions = [
     {
@@ -51,7 +55,7 @@ transactions = [
 ]
 
 
-@decor(filename="./wraps/log_generators.txt")
+@decor(filename=wraps_log)
 def filter_by_currency(transact_list: list[dict[Any, Any]], currency: str) -> Any:
     """Принимает список транзакций.
     Возвращает итератор, который поочередно выдает транзакции, где currency - валюта"""
@@ -74,7 +78,7 @@ def filter_by_currency(transact_list: list[dict[Any, Any]], currency: str) -> An
             yield f"Транзакций в валюте '{currency}' нет"
 
 
-@decor(filename="./wraps/log_generators.txt")
+@decor(filename=wraps_log)
 def transaction_descriptions(transact_list: list[dict[str, int]]) -> Any:
     """Принимает список транзакций и возвращает описание каждой операции по очереди"""
     tmp_transact = []
@@ -91,7 +95,7 @@ def transaction_descriptions(transact_list: list[dict[str, int]]) -> Any:
             yield "Данных по операциям нет"
 
 
-@decor(filename="./wraps/log_generators.txt")
+@decor(filename=wraps_log)
 def card_number_generator(start_range: int, end_range: int) -> Any:
     """Выдает номера банковских карт в формате XXXX XXXX XXXX XXXX
     Генератор генерирует номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999.

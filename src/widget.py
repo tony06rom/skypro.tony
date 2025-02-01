@@ -1,18 +1,23 @@
 import logging
 from typing import Any
-
+import os
 from src.decorators import decor_log as decor
 from src.masks import get_mask_account, get_mask_card_number
 
+
+root_dir = os.path.dirname(os.path.abspath('__name__'))
+logs_path = os.path.join(root_dir, "../logs/")
+wraps_log = os.path.join(root_dir, "../wraps/log_widget.txt")
+
 logger = logging.getLogger("widget")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("./logs/widget.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler(f"{logs_path}widget.log", "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-@decor(filename="./wraps/log_widget.txt")
+@decor(filename=wraps_log)
 def mask_account_card(user_number: str) -> Any:
     """Обрабатывает информацию как о картах, так и о счетах"""
 
@@ -52,7 +57,7 @@ def mask_account_card(user_number: str) -> Any:
         return mask_account_card(input("Введены некорректные данные. Повторите ввод или напишите 'quit' для выхода\n"))
 
 
-@decor(filename="./wraps/log_widget.txt")
+@decor(filename=wraps_log)
 def get_date(date_unformat: str) -> Any:
     """Принимает на вход дату формата '2024-03-11T02:26:18.671407' и
     отдает корректный результат в формате '11.07.2018'"""

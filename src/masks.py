@@ -1,17 +1,23 @@
 import logging
 from typing import Any
-
+import os
 from src.decorators import decor_log as decor
+
+
+root_dir = os.path.dirname(os.path.abspath('__name__'))
+logs_path = os.path.join(root_dir, "../logs/")
+wraps_log = os.path.join(root_dir, "../wraps/log_masks.txt")
+
 
 logger = logging.getLogger("masks")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("./logs/masks.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler(f"{logs_path}masks.log", "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-@decor(filename="./wraps/log_masks.txt")
+@decor(filename=wraps_log)
 def get_mask_card_number(card_number: str) -> Any:
     """Функция маскировки номера банковской карты"""
 
@@ -40,7 +46,7 @@ def get_mask_card_number(card_number: str) -> Any:
         )
 
 
-@decor(filename="./wraps/log_masks.txt")
+@decor(filename=wraps_log)
 def get_mask_account(score_card: str) -> Any:
     """Функция маскировки номера банковского счета"""
 
@@ -67,7 +73,3 @@ def get_mask_account(score_card: str) -> Any:
         return get_mask_card_number(
             input("Номер счёта введён неверно. " "Повторите ввод или напишите 'quit' для выхода\n")
         )
-
-
-get_mask_card_number("1234567890123456")
-# get_mask_account("12345678901234567890")

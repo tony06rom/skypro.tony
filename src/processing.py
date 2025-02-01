@@ -1,7 +1,14 @@
 from src.decorators import decor_log as decor
+import os
 
 
-@decor(filename="./wraps/log_processing.txt")
+root_dir = os.path.dirname(os.path.abspath('__name__'))
+logs_path = os.path.join(root_dir, "./logs/")
+data_path = os.path.join(root_dir, "./data/")
+wraps_log = os.path.join(root_dir, "./wraps/log_processing.txt")
+
+
+@decor(filename=wraps_log)
 def filter_by_state(filter_data: list[dict[str, int]], state: str = "EXECUTED") -> list[dict[str, int]]:
     """Словарь с фильтром state.
     Принимает на вход список словарей, делает выборку по совпадению значения ключа state.
@@ -14,7 +21,7 @@ def filter_by_state(filter_data: list[dict[str, int]], state: str = "EXECUTED") 
     return filter_data_state
 
 
-@decor(filename="./wraps/log_processing.txt")
+@decor(filename=wraps_log)
 def sort_by_date(sort_data: list[dict[str, int]], reverse: bool = True) -> list[dict[str, int]]:
     """Словарь отсортированный по дате.
     Принимает на вход список словарей, имеет стандартную сортировку в обратном порядке по data.

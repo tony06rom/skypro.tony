@@ -1,12 +1,22 @@
 import json
 import logging
 from typing import Any
-
+import os
 from src.external_api import convert_amount
+from pathlib import Path
+
+
+root_dir = os.path.dirname(os.path.abspath('__name__'))
+logs_path = os.path.join(root_dir, "./logs/")
+data_path = os.path.join(root_dir, "./data/")
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+DATA_DIR = ROOT_DIR / "data"
+LOGS_DIR = ROOT_DIR / "logs"
 
 logger = logging.getLogger("utils")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("./logs/utils.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler(f"{LOGS_DIR}\\utils.log", "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -19,9 +29,9 @@ def read_json_file(open_file: Any) -> Any:
     logger.info("Запуск программы")
 
     try:
-        with open(f"../data/{open_file}.json", "r", encoding="utf-8") as jf:
+        with open(f"{DATA_DIR}\\{open_file}.json", "r", encoding="utf-8") as jf:
 
-            logger.info(f"Открыт файл ../data/{open_file}.json на чтение")
+            logger.info(f"Открыт файл {DATA_DIR}\\{open_file}.json на чтение")
 
             try:
                 json_obj = json.load(jf)
@@ -81,6 +91,3 @@ def summ_transact_rub(finance_transacts: list[Any]) -> int:
     logger.info("Конвертация различных валют в RUB прошла успешно")
 
     return final
-
-
-read_json_file("operations")
