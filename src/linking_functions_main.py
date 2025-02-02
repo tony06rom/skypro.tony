@@ -1,9 +1,5 @@
-from pandas.io.formats.format import return_docstring
-
 from src.processing import filter_by_state, sort_by_date
 from src.re_collections import filter_by_description
-from src.utils import read_json_file
-from src.csv_pandas import csv_worker, excel_worker
 import os
 from pathlib import Path
 
@@ -54,7 +50,7 @@ def list_files_in_data(path_of_data, type_files):
         if file_name.endswith(type_files):
             count += 1
             print(f"-> {file_name[:-len(type_files)]}")
-    return f"!!! Inform !!! ---> Доступно '{type_files}' файлов в директории /data: {count}"
+    print(f"!!! Inform !!! ---> Доступно '{type_files}' файлов в директории /data: {count}")
 
 
 def uniq_data(start_data):
@@ -71,25 +67,17 @@ def uniq_data(start_data):
 # Фильтрует прочитанный файл по транзакции
 def filter_transact_by_state(input_user):
     """ Фильтрует по выбранному статусу транзакции """
-    def filter_helper(input_user_2):
-        if input_user_2:
-            if input_user_2 in uniq_state:
-                filter_data = filter_by_state(object_transactions, input_user)
-                print(f"# Операции отфильтрованы по статусу '{choose_filter_state}'")
-                return filter_data
-            elif input_user_2 == 'quit':
-                print('# До свидания!')
-                exit()
-            else:
-                return filter_helper(input('# Пожалуйста, введи один статус из списка ниже:\n'
-                                               f'{uniq_state}\n# Или введи "quit" для выхода из программы\n===> '))
-        else:
-            print("# Фильтрация по статус не была применена, так как не было дано допустимого ответа")
-            return object_transactions
+    if input_user in uniq_state:
+        filter_data = filter_by_state(object_transactions, input_user)
+        print(f"# Операции отфильтрованы по статусу '{choose_filter_state}'")
+        return filter_data
+    elif input_user == 'quit':
+        print('# До свидания!')
+        exit()
+    else:
+        filter_transact_by_state(input('# Пожалуйста, введи один статус из списка ниже:\n'
+                                       f'{uniq_state}\n# Или введи "quit" для выхода из программы\n===> '))
 
-
-    final_filter_statr = filter_helper(input_user)
-    return final_filter_statr
 
 def choose_reverse(reverse_mode):
     """ Считает тип сортировки списка по дате """
@@ -174,75 +162,3 @@ def filter_transact_by_description(filter_data_to_description, input_user):
     else:
         print("# Фильтрация по описанию не применена, так как не было найдено совпадений")
         return filter_data_to_description
-
-# ==========================================
-
-# Основная функция для связки всех функций -----------------------------------------------------------------------------
-if __name__ == "__main__":
-    stock_transactions = welcome()
-    object_transactions = []
-
-
-    # Соотносим цифры с файлами ----------------------------------------------------------------------------------------
-    if stock_transactions == '1':
-        list_of_dir = list_files_in_data(DATA_DIR, 'json')
-        print(f'Доступные файлы:{list_of_dir}\n===> ')
-        while stock_transactions not in list_of_dir:
-            stock_transactions = input(f'# Введите имя JSON-файла\n===> ')
-            if stock_transactions not in list_of_dir:
-                object_transactions = read_json_file(stock_transactions)
-            else:
-                print("Файл не найден\n")
-
-
-    # elif stock_transactions == '2':
-    #     stock_transactions = input(
-    #         f'# Введите имя CSV-файла. Доступные файлы:{list_files_in_data(DATA_DIR, 'csv')}\n===> ')
-    #     object_transactions = csv_worker(f"{DATA_DIR}\\{stock_transactions}.csv")
-    #
-    # elif stock_transactions == '3':
-    #     stock_transactions = input(
-    #         f'# Введите имя Excel-файла. Доступные файлы:{list_files_in_data(DATA_DIR, 'xlsx')}\n===> ')
-    #     object_transactions = excel_worker(f"{DATA_DIR}\\{stock_transactions}.xlsx")
-
-    # Применяем функцию чтения из файла---------------------------------------------------------------------------------
-    print(object_transactions)
-
-    # Чтение уникальных статусов из файла ------------------------------------------------------------------------------
-    uniq_state = uniq_data(object_transactions)
-
-
-
-    # Выбор пользователем фильтрации по статусу транзакции -------------------------------------------------------------
-    choose_filter_state = input("# Введите статус, по которому необходимо выполнить фильтрацию.\n"
-                                f"# Доступные статусы для фильтрации :\n{uniq_state}\n===> ")
-
-    # Фильтруем файл ---------------------------------------------------------------------------------------------------
-    filtered_by_state = filter_transact_by_state(choose_filter_state)
-
-    #print(filtered_by_state[0], filtered_by_state[-1])
-    print(filtered_by_state)
-    # Запрос сортировки по дате ----------------------------------------------------------------------------------------
-    users_sort_by_data = input("# Отсортировать операции по дате? [да(yes)/нет(no)]\n===> ")
-
-    # Сортировка транзакций по дате ------------------------------------------------------------------------------------
-    sorted_by_data = sort_transact_by_date(users_sort_by_data, filtered_by_state)
-
-    print(sorted_by_data[0], sorted_by_data[-1])
-
-    # Запрос фильтрации по валюте --------------------------------------------------------------------------------------
-    choose_filter_currency = input("# Выводить только рублевые транзакции? [да(yes)/нет(no)]\n===> ")
-
-    # Фильтрация транзакций по валюте ----------------------------------------------------------------------------------
-    filtered_by_currency = filter_by_currency(choose_filter_currency, sorted_by_data)
-
-    print(filtered_by_currency[0], filtered_by_currency[-1])
-
-    # Запрос фильтрации по описанию ------------------------------------------------------------------------------------
-    choose_filter_description = input(
-        "# Отфильтровать список транзакций по определенному слову? [да(yes)/нет(no)]\n===> ")
-
-    # Фильтрация транзакций по описанию --------------------------------------------------------------------------------
-    filtered_by_description = filter_transact_by_description(filtered_by_currency, choose_filter_description)
-
-    print(filtered_by_description)
