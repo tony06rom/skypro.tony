@@ -1,12 +1,16 @@
 import os
+from pathlib import Path
 from typing import Any
 
 import requests
 from dotenv import load_dotenv
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+DATA_DIR = ROOT_DIR / ".env"
+
 # Загружаем API-токен из .env
-load_dotenv("../.env")
-API_KEY = os.getenv("API_KEY")
+load_dotenv(DATA_DIR)
+API_KEY = os.getenv("API_KEY_LAYER")
 url = "https://api.apilayer.com/exchangerates_data/convert"
 
 

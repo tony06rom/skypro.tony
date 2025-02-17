@@ -1,10 +1,14 @@
 from datetime import datetime
 from functools import wraps
+from pathlib import Path
 from time import time
 from typing import Any
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+WRAPS_DIR = ROOT_DIR / "wraps"
 
-def decor_log(filename: str = "") -> Any:
+
+def decor_log(filename: Any = "") -> Any:
     """Логирует начало и конец выполнения функции, а также ее результаты или возникшие ошибки"""
 
     def decorator(func: Any) -> Any:
@@ -26,7 +30,7 @@ def decor_log(filename: str = "") -> Any:
                 end_time = time()
                 log_message += f"\nExecution time: {end_time - start_time:.7f}"
                 if filename:
-                    with open(filename, "w") as file:
+                    with open(f"{WRAPS_DIR}\\{filename}", "w", encoding="utf-8") as file:
                         file.write(log_message + "\n")
                 else:
                     print(log_message)

@@ -148,6 +148,24 @@
    
        [8]: /data/images/for_readme_file/Example_csv_pandas.png
        </details>
+   
+9. Модуль _**re_collections**_
+    - Доступные функции:
+      - filter_by_description
+      
+      _Пример импорта:_
+        ```
+      from src.re_collections import filter_by_description
+      ```
+
+       <details>
+       <summary>Пример работы:</summary>
+      
+       [![Example_filter_by_description][9]][9]
+   
+       [9]: /data/images/for_readme_file/Example_filter_by_description.png
+    - будет позже. Сейчас можно ознакомиться в последнем пункте работы всей программы через файл main.py в корне проекта
+       </details>   
       
 Все тесты функций можно выполнять из директории [moduls_test](/moduls_test)
 
@@ -228,7 +246,7 @@
 1. Функция **summ_transact_rub** не протестирована
 2. Функция **convert_amount** в модуле **external_api** не протестирована на возврат нулевого значения
 3. Функции в модуле **masks** не протестированы на циклический запуск функции
-4. Функция **mask_account_card** в модуле **widjet** не протестированы на циклический запуск функции
+4. Функция **mask_account_card** в модуле **widget** не протестированы на циклический запуск функции
 
 ## Полезные команды тестирования
 
@@ -244,7 +262,6 @@
 ## Примечания по проекту
 1. Пришлось установить библиотеки для mypy:
     ```mypy --install-types```
-2. 
 
 
 ===============================================================================================

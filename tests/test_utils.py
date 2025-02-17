@@ -1,5 +1,7 @@
 from unittest.mock import mock_open, patch
 
+import pytest
+
 from src.utils import read_json_file
 
 
@@ -21,23 +23,32 @@ def test_read_json_file(fix_data_read_json_valid_file):
         ]
 
 
-def test_get_read_file_invalid():
-    """Проверка на отсутствие JSON в файле. Возвращает пустой список"""
-    mocked_open = mock_open(read_data=None)
-    with patch("builtins.open", mocked_open):
-        result = read_json_file("builtins.open")
-        assert result == []
+def test_get_read_file_exit(capsys):
+    """Проверка на отсутствие файла. Выход из программы"""
+    with pytest.raises(SystemExit):
+        read_json_file("builtins.open")
+    out, err = capsys.readouterr()
+    assert out == "Файл не найден\n"
+    print(out, err)
 
 
-def test_get_read_file_empty_list(fix_data_read_json_empty_list):
-    """Проверка на пустой список. Возвращает пустой список"""
+def test_get_read_file_empty_list(capsys, fix_data_read_json_empty_list):
+    """Проверка на пустой список. Выход из программы"""
     mocked_open = mock_open(read_data=fix_data_read_json_empty_list)
     with patch("builtins.open", mocked_open):
-        result = read_json_file("builtins.open")
-        assert result == []
+        with pytest.raises(SystemExit):
+            read_json_file("builtins.open")
+    out, err = capsys.readouterr()
+    assert out == "Файл содержит пустой список\n"
+    print(out, err)
 
 
-def test_get_read_file_not_found_return():
-    """Проверка на отсутствие файла. Возвращает пустой список"""
-    result = read_json_file("builtins.open")
-    assert result == []
+def test_get_read_file_invalid(capsys, fix_data_read_json_empty_list):
+    """Проверка на отсутствие JSON в файле. Выход из программы"""
+    mocked_open = mock_open(read_data=None)
+    with patch("builtins.open", mocked_open):
+        with pytest.raises(SystemExit):
+            read_json_file("builtins.open")
+    out, err = capsys.readouterr()
+    assert out == "Объект не является JSON или JSON имеет неверный формат\n"
+    print(out, err)

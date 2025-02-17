@@ -1,14 +1,9 @@
 import json
 import logging
-from typing import Any
-import os
-from src.external_api import convert_amount
 from pathlib import Path
+from typing import Any
 
-
-root_dir = os.path.dirname(os.path.abspath('__name__'))
-logs_path = os.path.join(root_dir, "./logs/")
-data_path = os.path.join(root_dir, "./data/")
+from src.external_api import convert_amount
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT_DIR / "data"
@@ -45,19 +40,19 @@ def read_json_file(open_file: Any) -> Any:
                     logger.warning(f"JSON в файле {open_file} имеет пустой список")
 
                     print("Файл содержит пустой список")
-                    return []
+                    raise SystemExit()
             except json.JSONDecodeError:
 
                 logger.error("Ошибка работы с файлов. Некорректный формат JSON")
 
                 print("Объект не является JSON или JSON имеет неверный формат")
-                return []
+                raise SystemExit()
     except FileNotFoundError:
 
         logger.error(f"JSON с именем {open_file} не найден в директории ../data/")
 
         print("Файл не найден")
-        return []
+        raise SystemExit()
 
 
 def summ_transact_rub(finance_transacts: list[Any]) -> int:

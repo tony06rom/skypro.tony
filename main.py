@@ -1,248 +1,73 @@
-from pandas.io.formats.format import return_docstring
-
-from src.processing import filter_by_state, sort_by_date
-from src.re_collections import filter_by_description
-from src.utils import read_json_file
-from src.csv_pandas import csv_worker, excel_worker
-import os
 from pathlib import Path
 
-root_dir = os.path.dirname(os.path.abspath('__name__'))
-data_path = os.path.join(root_dir, "./data")
+from src.csv_pandas import csv_worker, excel_worker
+from src.linking_functions_main import (filter_by_currency, filter_transact_by_description, filter_transact_by_state,
+                                        list_files_in_data, sort_transact_by_date, true_output, uniq_data, welcome)
+from src.utils import read_json_file
 
 ROOT_DIR = Path(__file__).resolve().parents[0]
 DATA_DIR = ROOT_DIR / "data"
 
-def welcome():
-    """ Приветствует пользователя и дает выбор работы с транзакциями """
-    def choose_mode(users_mode):
-        """ Выбирает режим работы """
-        mode = {'1': 'JSON-файла', '2': 'CSV-файла', '3': 'XLSX-файла'}
-        if users_mode in mode.keys():
-            for key, value in mode.items():
-                if users_mode == key:
-                    print(f'# Был выбран режим получения данных из {value}\n')
-                    return users_mode
-        elif users_mode == 'quit':
-            print('# До свидания!')
-            exit()
-        else:
-            return choose_mode(input('# Пожалуйста, введи цифру от 1 до 3 для продолжения операции.\n'
-                              '# Или введи "quit" для выхода из программы\n===> '))
-
-    input_user = input("# Добро пожаловать в программу работы с банковскими транзакциями!\n"
-                        "# Выбери необходимый пункт меню [1-3]:\n"
-                        "1. Получить информацию о транзакциях из JSON-файла\n"
-                        "2. Получить информацию о транзакциях из CSV-файла\n"
-                        "3. Получить информацию о транзакциях из XLSX-файла\n"
-                        "===> ")
-    first_exec = choose_mode(input_user)
-    return first_exec
-
-
-def list_files_in_data(path_of_data, type_files):
-    """ Вычитывает файлы определенного расширения в директории и выводит пользователю """
-    print('# ../data:')
-    count = 0
-    if type_files == 'csv':
-        type_files = ".csv"
-    elif type_files == 'json':
-        type_files = ".json"
-    elif type_files == 'xlsx':
-        type_files = ".xlsx"
-    for file_name in os.listdir(path_of_data):
-        if file_name.endswith(type_files):
-            count += 1
-            print(f"-> {file_name[:-len(type_files)]}")
-    return f"!!! Inform !!! ---> Доступно '{type_files}' файлов в директории /data: {count}"
-
-
-def uniq_data(start_data):
-    """ Вычитывает доступные статусы транзакций и выводит пользователю """
-    uniq_final_data = []
-    for data in start_data:
-            for k, v in data.items():
-                if k == "state":
-                    if v not in uniq_final_data:
-                        uniq_final_data.append(v)
-    return "\n".join(uniq_final_data)
-
-
-# Фильтрует прочитанный файл по транзакции
-def filter_transact_by_state(input_user):
-    """ Фильтрует по выбранному статусу транзакции """
-    def filter_helper(input_user_2):
-        if input_user_2:
-            if input_user_2 in uniq_state:
-                filter_data = filter_by_state(object_transactions, input_user)
-                print(f"# Операции отфильтрованы по статусу '{choose_filter_state}'")
-                return filter_data
-            elif input_user_2 == 'quit':
-                print('# До свидания!')
-                exit()
-            else:
-                return filter_helper(input('# Пожалуйста, введи один статус из списка ниже:\n'
-                                               f'{uniq_state}\n# Или введи "quit" для выхода из программы\n===> '))
-        else:
-            print("# Фильтрация по статус не была применена, так как не было дано допустимого ответа")
-            return object_transactions
-
-
-    final_filter_statr = filter_helper(input_user)
-    return final_filter_statr
-
-def choose_reverse(reverse_mode):
-    """ Считает тип сортировки списка по дате """
-    if reverse_mode == str("по возрастанию"):
-        return {"reverse_mode_bool": True, "reverse_mode_string": "убыванию"}
-    elif reverse_mode == str("по убыванию"):
-        return {"reverse_mode_bool": False, "reverse_mode_string": "возрастанию"}
-    else:
-        return {"reverse_mode_bool": True, "reverse_mode_string": "умолчанию (по убыванию)"}
-
-
-def sort_transact_by_date(input_user, filtered_state_to_data):
-    """ Сортирует по дате """
-    list_answers_yes = ["да", "д", "y", "yes", "+"]
-    list_answers_no = ["нет", "н", "n", "no", "-"]
-    if input_user.lower() in list_answers_yes:
-        need_sort = input('# Отсортировать [1] по возрастанию или [2] по убыванию? Введите цифру\n===> ')
-        if need_sort == '1':
-            need_sort = 'по возрастанию'
-        elif need_sort == '2':
-            need_sort = 'по убыванию'
-        reverse_equals = choose_reverse(need_sort)
-        filtered_data = sort_by_date(filtered_state_to_data, reverse_equals["reverse_mode_bool"])
-        print(f"# Операции отсортированы {need_sort}")
-        return filtered_data
-    elif input_user.lower() in list_answers_no:
-        print("# Фильтрация по дате не применена")
-        return filtered_state_to_data
-    else:
-        print("# Фильтрация по дате не применена, так как не было дано допустимого ответа")
-        return filtered_state_to_data
-
-
-def uniq_currency(start_data):
-    """ Считывает и выводит на экран доступные валюты """
-    uniq_final_currency = []
-    for data in start_data:
-        if "operationAmount" in data:
-            if data["operationAmount"]["currency"]["code"] not in uniq_final_currency:
-                uniq_final_currency.append(data["operationAmount"]["currency"]["code"])
-        else:
-            for k, v in data.items():
-                if k == "currency_code":
-                    if v not in uniq_final_currency:
-                        uniq_final_currency.append(v)
-    return "\n".join(uniq_final_currency)
-
-
-def filter_by_currency(input_user, sorted_data_to_currency):
-    """ Фильтрует по валюте """
-    list_answers_yes = ["да", "д", "y", "yes", "+"]
-    list_answers_no = ["нет", "н", "n", "no", "-"]
-    if input_user.lower() in list_answers_yes:
-        filter_data_state = []
-        for data in sorted_data_to_currency:
-            if "operationAmount" in data:
-                if data["operationAmount"]["currency"]["code"] == 'RUB':
-                    filter_data_state.append(data)
-            else:
-                filtered_data = filter_by_state(sorted_data_to_currency, 'RUB')
-                return filtered_data
-        print(f"# Операции отсортированы по '{input_user}'")
-        return filter_data_state
-    elif input_user.lower() in list_answers_no:
-        print("# Фильтрация по валютам не применена")
-        return sorted_data_to_currency
-    else:
-        print("# Фильтрация по валютам не применена, так как не было дано допустимого ответа")
-        return sorted_data_to_currency
-
-
-def filter_transact_by_description(filter_data_to_description, input_user):
-    """ Фильтрует по описанию """
-    list_answers_yes = ["да", "д", "y", "yes", "+"]
-    list_answers_no = ["нет", "н", "n", "no", "-"]
-    if input_user.lower() in list_answers_yes:
-        find = input("# Введите строку поиска для фильтрации по описанию\n===> ")
-        filtered_data = filter_by_description(filter_data_to_description, find)
-        return filtered_data
-    elif input_user.lower() in list_answers_no:
-        return filter_data_to_description
-    else:
-        print("# Фильтрация по описанию не применена, так как не было найдено совпадений")
-        return filter_data_to_description
-
-# ==========================================
-
-# Основная функция для связки всех функций -----------------------------------------------------------------------------
 if __name__ == "__main__":
+    """Начало основной логики программы"""
     stock_transactions = welcome()
     object_transactions = []
 
+    if stock_transactions == "1":  # Соотносим цифры с файлами
+        print("# Доступные файлы:")
+        list_of_dir = list_files_in_data(DATA_DIR, "json")
+        print(list_of_dir)
+        stock_transactions = input("# Введите имя JSON-файла\n===> ")
+        object_transactions = read_json_file(stock_transactions)
+    elif stock_transactions == "2":
+        print("# Доступные файлы:")
+        list_of_dir = list_files_in_data(DATA_DIR, "csv")
+        print(list_of_dir)
+        stock_transactions = input("# Введите имя CSV-файла\n===> ")
+        object_transactions = csv_worker(f"{DATA_DIR}\\{stock_transactions}.csv")
+    elif stock_transactions == "3":
+        print("# Доступные файлы:")
+        list_of_dir = list_files_in_data(DATA_DIR, "xlsx")
+        print(list_of_dir)
+        stock_transactions = input("# Введите имя Excel-файла\n===> ")
+        object_transactions = excel_worker(f"{DATA_DIR}\\{stock_transactions}.xlsx")
 
-    # Соотносим цифры с файлами ----------------------------------------------------------------------------------------
-    if stock_transactions == '1':
-        list_of_dir = list_files_in_data(DATA_DIR, 'json')
-        print(f'Доступные файлы:{list_of_dir}\n===> ')
-        while stock_transactions not in list_of_dir:
-            stock_transactions = input(f'# Введите имя JSON-файла\n===> ')
-            if stock_transactions not in list_of_dir:
-                object_transactions = read_json_file(stock_transactions)
-            else:
-                print("Файл не найден\n")
+    # print(object_transactions)  # Применяем функцию чтения из файла
 
+    uniq_state = uniq_data(object_transactions)  # Чтение уникальных статусов из файла
 
-    # elif stock_transactions == '2':
-    #     stock_transactions = input(
-    #         f'# Введите имя CSV-файла. Доступные файлы:{list_files_in_data(DATA_DIR, 'csv')}\n===> ')
-    #     object_transactions = csv_worker(f"{DATA_DIR}\\{stock_transactions}.csv")
-    #
-    # elif stock_transactions == '3':
-    #     stock_transactions = input(
-    #         f'# Введите имя Excel-файла. Доступные файлы:{list_files_in_data(DATA_DIR, 'xlsx')}\n===> ')
-    #     object_transactions = excel_worker(f"{DATA_DIR}\\{stock_transactions}.xlsx")
+    choose_filter_state = input(
+        "# Введите статус, по которому необходимо выполнить фильтрацию.\n"
+        f"# Доступные статусы для фильтрации :\n{uniq_state}\n===> "
+    )  # Выбор пользователем
+    # фильтрации по статусу транзакции
 
-    # Применяем функцию чтения из файла---------------------------------------------------------------------------------
-    print(object_transactions)
+    filtered_by_state = filter_transact_by_state(
+        choose_filter_state, uniq_state, object_transactions
+    )  # Фильтруем файл
 
-    # Чтение уникальных статусов из файла ------------------------------------------------------------------------------
-    uniq_state = uniq_data(object_transactions)
+    users_sort_by_data = input(
+        "# Отсортировать операции по дате? [да(yes)/нет(no)]\n===> "
+    )  # Запрос сортировки по дате
 
+    sorted_by_data = sort_transact_by_date(users_sort_by_data, filtered_by_state)  # Сортировка транзакций по дате
 
+    choose_filter_currency = input(
+        "# Выводить только рублевые транзакции? [да(yes)/нет(no)]\n===> "
+    )  # Запрос фильтрации по валюте
 
-    # Выбор пользователем фильтрации по статусу транзакции -------------------------------------------------------------
-    choose_filter_state = input("# Введите статус, по которому необходимо выполнить фильтрацию.\n"
-                                f"# Доступные статусы для фильтрации :\n{uniq_state}\n===> ")
+    filtered_by_currency = filter_by_currency(
+        choose_filter_currency, sorted_by_data
+    )  # Фильтрация транзакций по валюте
 
-    # Фильтруем файл ---------------------------------------------------------------------------------------------------
-    filtered_by_state = filter_transact_by_state(choose_filter_state)
-
-    #print(filtered_by_state[0], filtered_by_state[-1])
-    print(filtered_by_state)
-    # Запрос сортировки по дате ----------------------------------------------------------------------------------------
-    users_sort_by_data = input("# Отсортировать операции по дате? [да(yes)/нет(no)]\n===> ")
-
-    # Сортировка транзакций по дате ------------------------------------------------------------------------------------
-    sorted_by_data = sort_transact_by_date(users_sort_by_data, filtered_by_state)
-
-    print(sorted_by_data[0], sorted_by_data[-1])
-
-    # Запрос фильтрации по валюте --------------------------------------------------------------------------------------
-    choose_filter_currency = input("# Выводить только рублевые транзакции? [да(yes)/нет(no)]\n===> ")
-
-    # Фильтрация транзакций по валюте ----------------------------------------------------------------------------------
-    filtered_by_currency = filter_by_currency(choose_filter_currency, sorted_by_data)
-
-    print(filtered_by_currency[0], filtered_by_currency[-1])
-
-    # Запрос фильтрации по описанию ------------------------------------------------------------------------------------
     choose_filter_description = input(
-        "# Отфильтровать список транзакций по определенному слову? [да(yes)/нет(no)]\n===> ")
+        "# Отфильтровать список транзакций по определенному слову? [да(yes)/нет(no)]\n===> "
+    )  # Запрос фильтрации по описанию
 
-    # Фильтрация транзакций по описанию --------------------------------------------------------------------------------
-    filtered_by_description = filter_transact_by_description(filtered_by_currency, choose_filter_description)
+    filtered_by_description = filter_transact_by_description(
+        filtered_by_currency, choose_filter_description
+    )  # Фильтрация транзакций по описанию
 
-    print(filtered_by_description)
+    final_result = true_output(filtered_by_description)
+
+    print(final_result)

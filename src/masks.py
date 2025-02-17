@@ -1,23 +1,22 @@
 import logging
+from pathlib import Path
 from typing import Any
-import os
+
 from src.decorators import decor_log as decor
 
-
-root_dir = os.path.dirname(os.path.abspath('__name__'))
-logs_path = os.path.join(root_dir, "../logs/")
-wraps_log = os.path.join(root_dir, "../wraps/log_masks.txt")
+ROOT_DIR = Path(__file__).resolve().parents[1]
+LOGS_DIR = ROOT_DIR / "logs"
 
 
 logger = logging.getLogger("masks")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler(f"{logs_path}masks.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler(f"{LOGS_DIR}\\masks.log", "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-@decor(filename=wraps_log)
+@decor(filename="log_masks.txt")
 def get_mask_card_number(card_number: str) -> Any:
     """Функция маскировки номера банковской карты"""
 
@@ -46,7 +45,7 @@ def get_mask_card_number(card_number: str) -> Any:
         )
 
 
-@decor(filename=wraps_log)
+@decor(filename="log_masks.txt")
 def get_mask_account(score_card: str) -> Any:
     """Функция маскировки номера банковского счета"""
 
