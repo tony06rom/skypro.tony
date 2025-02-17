@@ -32,42 +32,35 @@ if __name__ == "__main__":
         stock_transactions = input("# Введите имя Excel-файла\n===> ")
         object_transactions = excel_worker(f"{DATA_DIR}\\{stock_transactions}.xlsx")
 
-    # print(object_transactions)  # Применяем функцию чтения из файла
+    # Чтение уникальных статусов из файла
+    uniq_state = uniq_data(object_transactions)
 
-    uniq_state = uniq_data(object_transactions)  # Чтение уникальных статусов из файла
+    # Выбор пользователем
+    choose_filter_state = input("# Введите статус, по которому необходимо выполнить фильтрацию.\n"
+        f"# Доступные статусы для фильтрации :\n{uniq_state}\n===> ")
 
-    choose_filter_state = input(
-        "# Введите статус, по которому необходимо выполнить фильтрацию.\n"
-        f"# Доступные статусы для фильтрации :\n{uniq_state}\n===> "
-    )  # Выбор пользователем
-    # фильтрации по статусу транзакции
+    # Фильтруем файл
+    filtered_by_state = filter_transact_by_state(choose_filter_state, uniq_state, object_transactions)
 
-    filtered_by_state = filter_transact_by_state(
-        choose_filter_state, uniq_state, object_transactions
-    )  # Фильтруем файл
+    # Запрос сортировки по дате
+    users_sort_by_data = input("# Отсортировать операции по дате? [да(yes)/нет(no)]\n===> ")
 
-    users_sort_by_data = input(
-        "# Отсортировать операции по дате? [да(yes)/нет(no)]\n===> "
-    )  # Запрос сортировки по дате
+    # Сортировка транзакций по дате
+    sorted_by_data = sort_transact_by_date(users_sort_by_data, filtered_by_state)
 
-    sorted_by_data = sort_transact_by_date(users_sort_by_data, filtered_by_state)  # Сортировка транзакций по дате
+    # Запрос фильтрации по валюте
+    choose_filter_currency = input("# Выводить только рублевые транзакции? [да(yes)/нет(no)]\n===> ")
 
-    choose_filter_currency = input(
-        "# Выводить только рублевые транзакции? [да(yes)/нет(no)]\n===> "
-    )  # Запрос фильтрации по валюте
+    # Фильтрация транзакций по валюте
+    filtered_by_currency = filter_by_currency(choose_filter_currency, sorted_by_data)
 
-    filtered_by_currency = filter_by_currency(
-        choose_filter_currency, sorted_by_data
-    )  # Фильтрация транзакций по валюте
+    # Запрос фильтрации по описанию
+    choose_filter_description = input("# Отфильтровать список транзакций по определенному слову? [да(yes)/нет(no)]\n===> ")
 
-    choose_filter_description = input(
-        "# Отфильтровать список транзакций по определенному слову? [да(yes)/нет(no)]\n===> "
-    )  # Запрос фильтрации по описанию
+    # Фильтрация транзакций по описанию
+    filtered_by_description = filter_transact_by_description(filtered_by_currency, choose_filter_description)
 
-    filtered_by_description = filter_transact_by_description(
-        filtered_by_currency, choose_filter_description
-    )  # Фильтрация транзакций по описанию
-
+    # Форматирование для конечного вывода
     final_result = true_output(filtered_by_description)
 
     print(final_result)

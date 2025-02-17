@@ -14,6 +14,6 @@ def test_convert_amount(mock_get):
     assert response.json()["result"] == 102
 
 
-def test_convert_amount__key_error():
+def test_convert_amount_key_error():
     """Проверка на правильность данных. Будет вызвано исключение KeyError"""
     assert convert_amount("100", "RUB", "доллар") == "Error: KeyError, Incorrect Value"
