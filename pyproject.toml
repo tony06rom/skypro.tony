@@ -30,6 +30,8 @@ pytest-cov = "^6.0.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.pytest]
+
 [tool.mypy]
 disallow_untyped_defs = true
 no_implicit_optional = true
@@ -53,6 +55,7 @@ exclude = '''
     | \.tox
     | \.venv
     | dist
+    | \trash
   )/
   | foo.py           # Также отдельно исключить файл с именем foo.py
                      # в корне проекта

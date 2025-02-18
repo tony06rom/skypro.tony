@@ -1,12 +1,17 @@
 import json
 import logging
+from pathlib import Path
 from typing import Any
 
 from src.external_api import convert_amount
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+DATA_DIR = ROOT_DIR / "data"
+LOGS_DIR = ROOT_DIR / "logs"
+
 logger = logging.getLogger("utils")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("./logs/utils.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler(f"{LOGS_DIR}\\utils.log", "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(funcName)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -19,9 +24,9 @@ def read_json_file(open_file: Any) -> Any:
     logger.info("Запуск программы")
 
     try:
-        with open(f"../data/{open_file}.json", "r", encoding="utf-8") as jf:
+        with open(f"{DATA_DIR}\\{open_file}.json", "r", encoding="utf-8") as jf:
 
-            logger.info(f"Открыт файл ../data/{open_file}.json на чтение")
+            logger.info(f"Открыт файл {DATA_DIR}\\{open_file}.json на чтение")
 
             try:
                 json_obj = json.load(jf)
@@ -35,19 +40,19 @@ def read_json_file(open_file: Any) -> Any:
                     logger.warning(f"JSON в файле {open_file} имеет пустой список")
 
                     print("Файл содержит пустой список")
-                    return []
+                    raise SystemExit()
             except json.JSONDecodeError:
 
                 logger.error("Ошибка работы с файлов. Некорректный формат JSON")
 
                 print("Объект не является JSON или JSON имеет неверный формат")
-                return []
+                raise SystemExit()
     except FileNotFoundError:
 
         logger.error(f"JSON с именем {open_file} не найден в директории ../data/")
 
         print("Файл не найден")
-        return []
+        raise SystemExit()
 
 
 def summ_transact_rub(finance_transacts: list[Any]) -> int:
@@ -81,6 +86,3 @@ def summ_transact_rub(finance_transacts: list[Any]) -> int:
     logger.info("Конвертация различных валют в RUB прошла успешно")
 
     return final
-
-
-read_json_file("operations")
