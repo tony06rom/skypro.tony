@@ -36,8 +36,10 @@ if __name__ == "__main__":
     uniq_state = uniq_data(object_transactions)
 
     # Выбор пользователем
-    choose_filter_state = input("# Введите статус, по которому необходимо выполнить фильтрацию.\n"
-        f"# Доступные статусы для фильтрации :\n{uniq_state}\n===> ")
+    choose_filter_state = input(
+        "# Введите статус, по которому необходимо выполнить фильтрацию.\n"
+        f"# Доступные статусы для фильтрации :\n{uniq_state}\n===> "
+    )
 
     # Фильтруем файл
     filtered_by_state = filter_transact_by_state(choose_filter_state, uniq_state, object_transactions)
@@ -55,7 +57,9 @@ if __name__ == "__main__":
     filtered_by_currency = filter_by_currency(choose_filter_currency, sorted_by_data)
 
     # Запрос фильтрации по описанию
-    choose_filter_description = input("# Отфильтровать список транзакций по определенному слову? [да(yes)/нет(no)]\n===> ")
+    choose_filter_description = input(
+        "# Отфильтровать список транзакций по определенному слову? [да(yes)/нет(no)]\n===> "
+    )
 
     # Фильтрация транзакций по описанию
     filtered_by_description = filter_transact_by_description(filtered_by_currency, choose_filter_description)
